@@ -1,0 +1,130 @@
+﻿@model IEnumerable<OrderDetails>
+
+@{
+    ViewData["title"] = "Chi tiết đơn hàng";
+    decimal total = 0;
+    decimal subtotal = 0;
+}
+<head>
+    <style>
+        /* Custom styles */
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .table th {
+            font-weight: bold;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .text-success {
+            color: #28a745;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        .select-update-order {
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .pagination a {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+            .pagination a:hover {
+                background-color: #f1f1f1;
+            }
+
+    </style>
+</head>
+<div class="container mt-4">
+    <h3 class="text-center text-primary mb-4">Danh sách sản phẩm mua</h3>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Tên người mua</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                subtotal = item.Price * item.Quantity;
+                total += subtotal;
+                <tr>
+                    <input type="hidden" asp-for="@item.OrderCode" class="getId" />
+                    <th scope="row">@item.Id</th>
+                    <th scope="row">@item.OrderCode</th>
+                    <td>@item.UserName</td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>@subtotal.ToString("C")</td>
+                </tr>
+            }
+
+            <tr>
+                <th colspan="6">Thành tiền:</th>
+                <td>@total.ToString("C")</td>
+                <td>
+                    <select class="form-control select-update-order">
+                        <option value="1">Đơn hàng mới</option>
+                        <option value="0">Đã xử lý</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.select-update-order').change(function () {
+                var status = $(this).val(); // status = 1 or 0
+                var ordercode = $('.getId').val(); // Get order code from the hidden input
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("UpdateOrder")",
+                    data: { status: status, ordercode: ordercode },
+                    success: function (result) {
+                        if (result.success) {
+                            Swal.fire({
+                                position: "top-center",
+                                icon: "success",
+                                title: "Cập nhật đơn hàng thành công",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi :(",
+                                text: "Cập nhật đơn hàng thất bại" + result.message,
+                                footer: '<a href="#">Why do I have this issue?</a>'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

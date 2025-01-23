@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null;
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | ASM_C#4</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/css/price-range.css" rel="stylesheet">
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/main.css" rel="stylesheet">
+    <link href="~/css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        /* Đảm bảo trang có chiều cao tối thiểu bằng chiều cao của cửa sổ */
+        body, html {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nội dung chính của trang - chiếm hết không gian trống */
+        #cart_items {
+            flex: 1;
+            padding: 30px 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Đảm bảo footer nằm ở dưới cùng */
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+@using ASM_C_4.Models.ViewModels
+@model CartItemViewModel
+
+@await Html.PartialAsync("_Navbar")
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="Index" class="text-primary">Home</a></li>
+                <li class="active">Giỏ hàng</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="cart_menu bg-primary text-white">
+                        <td class="image">Hình ảnh</td>
+                        <td class="description">Tên</td>
+                        <td class="price">Giá</td>
+                        <td class="quantity">Số lượng</td>
+                        <td class="total">Tổng giá</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.CartItems.Count > 0)
+                    {
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <img src="~/media/products/@item.Image" alt="@item.ProductName" width="80px" height="80px" class="rounded">
+                                </td>
+                                <td class="cart_description">
+                                    <h5>@item.ProductName</h5>
+                                </td>
+                                <td class="cart_price">
+                                    <p>$@item.Price.ToString("0.00")</p>
+                                </td>
+                                <td class="cart_quantity">
+                                    <div class="d-flex align-items-center">
+                                        <a class="btn btn-light btn-sm me-2" asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId">+</a>
+                                        <input class="cart_quantity_input form-control text-center me-2" type="text" name="quantity" value="@item.Quantity" readonly style="width: 50px;">
+                                        <a class="btn btn-light btn-sm me-2" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId">-</a>
+                                        <a class="btn btn-danger btn-sm" asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId"><i class="fa fa-times"></i> Remove</a>
+                                    </div>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">$@(item.Quantity * item.Price)</p>
+                                </td>
+                            </tr>
+                        }
+                        <tr class="table-light">
+                            <td colspan="4" class="text-end"></td>
+                            <td><strong>Tổng tiền: $@Model.GrandTotal.ToString("0.00")</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-end">
+                                <a class="btn btn-danger btn-sm" asp-controller="Cart" asp-action="Clear">Xóa giỏ hàng</a>
+                                @if (User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <a class="btn btn-success btn-sm ms-2" asp-controller="Checkout" asp-action="Checkout">Thanh toán</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success btn-sm ms-2" asp-controller="Account" asp-action="Login">Đăng nhập để thanh toán</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <h4>Giỏ hàng rỗng.</h4>
+                                <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Đặt món ngay</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("_Footer")
+
+<!-- Đặt các tệp JavaScript bên ngoài phần nội dung chính -->
+<script src="~/js/jquery.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.scrollUp.min.js"></script>
+<script src="~/js/price-range.js"></script>
+<script src="~/js/jquery.prettyPhoto.js"></script>
+<script src="~/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    $(function () {
+        var message = '@TempData["success"]';
+        if (message) {
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    });
+</script>
+
+<script>
+    $(function () {
+        var message = '@Html.Raw(TempData["error"] ?? "")';
+        if (message) {
+            Swal.fire({
+                icon: "error",
+                title: "Lỗi :(",
+                text: message,
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+        }
+    });
+</script>
+
+@* @await RenderSectionAsync("Scripts", required: false) *@

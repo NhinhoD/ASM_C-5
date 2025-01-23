@@ -1,0 +1,79 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Đăng ký";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <section id="signup-section" class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f4f6f9;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card shadow p-4">
+                        <a asp-action="Index" asp-controller="Home" class="col-1">
+                            <img src="https://st.depositphotos.com/57803962/56463/v/450/depositphotos_564635356-stock-illustration-fast-food-icon-vector-illustration.jpg" alt="E-Shopper Logo" style="width: 70px; height: 60px; margin-bottom: 20px;" />
+                        </a>
+                        <h2 class="text-center mb-4">Đăng ký tài khoản</h2>
+                        <div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+                        <form asp-action="Create" asp-controller="Account">
+                            <div class="form-group mb-3">
+                                <label for="username">Tên đăng nhập</label>
+                                <input asp-for="Username" class="form-control" id="username" placeholder="Nhập tên đăng nhập" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <input asp-for="Email" class="form-control" id="email" placeholder="Nhập địa chỉ email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="number">PhoneNumber</label>
+                                <input asp-for="PhoneNumber" class="form-control" id="phonenumber" placeholder="Nhập SDT" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="text">Dia Chi</label>
+                                <input asp-for="address" class="form-control" id="address" placeholder="Nhập địa chỉ" />
+                                <span asp-validation-for="address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="password">Mật khẩu</label>
+                                <input asp-for="Password" class="form-control" id="password" type="password" placeholder="Nhập mật khẩu" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="confirmPassword">Nhập lại mật khẩu</label>
+                                <input asp-for="ConfirmPassword" class="form-control" id="confirmPassword" type="password" placeholder="Nhập lại mật khẩu" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <button class="btn btn-primary w-100">Đăng ký</button>
+                            </div>
+                            <div class="text-center">
+                                <a asp-action="Login" asp-controller="Account" class="text-primary">Quay lại đăng nhập</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

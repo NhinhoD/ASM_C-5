@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Home | ASM_C#4</title>
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/css/prettyPhoto.css" rel="stylesheet">
+	<link href="~/css/price-range.css" rel="stylesheet">
+	<link href="~/css/animate.css" rel="stylesheet">
+	<link href="~/css/main.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> @*Nhúng Icon*@
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet"> @*Nhúng css sweet aler*@
+	<style>
+		.carousel-inner .item active .col-sm-12 .img{
+			width: 500px;
+			height: 250px;
+		}
+		.fixed-top {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 10px;
+}
+	</style>
+</head>
+
+<body style="height:100%;">
+	@await Html.PartialAsync("_Navbar")<!--/header-->
+	<div class="container">
+		@Html.Partial("_NotificationPartial")
+	</div>
+	<section id="slider">
+		<!--slider-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#slider-carousel" data-slide-to="1"></li>
+							<li data-target="#slider-carousel" data-slide-to="2"></li>
+						</ol>
+
+						<div class="carousel-inner">
+							<div class="item active">					
+								<img src="https://image.seapik.com/template/edit/20240427/sm/homepage-banner-for-west-point-food_51377.jpg" style="height: 482px;width:97%;" />
+							</div>
+							<div class="item">
+								<img src="https://i.pinimg.com/originals/f7/ee/73/f7ee73c2beed633738aaf335863c6a64.gif" style="height: 482px;width:97%;" />
+							</div>
+
+							<div class="item">
+								<img src="https://static.vecteezy.com/system/resources/thumbnails/052/140/324/large/surreal-fantasy-landscape-with-neon-pink-digital-mountains-in-a-virtual-reality-setting-creating-a-futuristic-and-immersive-dreamscape-video.jpg" style="height: 482px;width:97%;" />
+							</div>
+
+						</div>
+
+						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section><!--/slider-->
+
+	<section>
+		<div class="container">
+			<div class="row">
+				@RenderBody()
+			</div>
+		</div>
+	</section>
+
+	@await Html.PartialAsync("_Footer")
+
+
+
+
+	<script src="~/js/jquery.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.scrollUp.min.js"></script>
+	<script src="~/js/price-range.js"></script>
+	<script src="~/js/jquery.prettyPhoto.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script> @*Nhúng Js sweet aler*@
+	<script>
+		$(function () {
+			var message = '@TempData["success"]';
+			if (message) { // Kiểm tra nếu message có giá trị (không phải null hoặc chuỗi rỗng)
+				Swal.fire({
+					position: "top-center",
+					icon: "success",
+					title: message, // Hiển thị nội dung từ TempData nếu có
+					showConfirmButton: false,
+					timer: 1500
+				});
+			}
+		});
+	</script>
+	<script>
+		$(function () {
+			var message = '@Html.Raw(TempData["error"] ?? "")';
+			if (message) { // Kiểm tra nếu message có giá trị (không phải null hoặc chuỗi rỗng)
+				Swal.fire({
+					icon: "error",
+					title: "Lỗi :(",
+					text: message,
+					footer: '<a href="#">Tại sao tôi gặp sự cố này?</a>'
+				});
+			}
+		});
+	</script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ASM_C_4.Models.Combo> 
+<h1>Danh sách Combo</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Combo</th>
+            <th>Giá</th>
+            <th>Sản phẩm</th>
+            <th>Hinh anh</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var combo in Model)
+        {
+            <tr>
+                <td>@combo.Name</td>
+                <td>@combo.Price.ToString("C")</td> <!-- Định dạng giá tiền -->
+                <td>
+                    @if (combo.ComboProducts != null && combo.ComboProducts.Any())
+                    {
+                        @foreach (var product in combo.ComboProducts.Select(cp => cp.Product))
+                        {
+                            <span>@product.Name</span>
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        <span>Không có sản phẩm</span>
+                    }
+                </td>
+                <td><img src="~/media/products/@combo.Image" width="120" height="150" alt="@combo.Name" class="img-fluid rounded" /></td>
+
+                <td>
+                    <a asp-action="Delete" asp-route-id="@combo.Id " class="btn btn-danger confirmDeletion">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" class="btn btn-primary">Thêm Combo</a>
+

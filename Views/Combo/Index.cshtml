@@ -1,0 +1,58 @@
+﻿@{
+    var combos = ViewBag.Combos as List<ASM_C_4.Models.Combo>;
+}
+<!-- Combo Section -->
+<div class="recommended_items mb-5">
+    <h2 class="title text-center">Combo</h2>
+    @if (combos != null && combos.Any())
+    {
+        <div id="comboCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    var chunkSize = 3; // Số lượng combo hiển thị trong mỗi slide
+                    for (int i = 0; i < combos.Count; i += chunkSize)
+                    {
+                        var items = combos.Skip(i).Take(chunkSize);
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row">
+
+                                @foreach (var combo in items)
+                                {
+                                    <div class="col-lg-4 col-md-6 mb-3">
+                                        <div class="card product-image-wrapper">
+                                            <a asp-action="Details" asp-controller="Combo" asp-route-id="@combo.Id">
+                                                <img src="~/media/products/@combo.Image" alt="@combo.Name" class="card-img-top">
+                                            </a>
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">@combo.Name</h5>
+                                                <p>@Html.Raw(@combo.Description)</p>
+                                                <h5 class="text-primary">$@combo.Price</h5>
+                                                <a asp-action="Details" asp-controller="Combo" asp-route-id="@combo.Id" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-shopping-cart"></i> Mua ngay
+                                                </a>
+                                            </div>
+                                            <div class="card-footer">
+                                                <ul class="nav nav-pills nav-justified">
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link"><i class="fa fa-heart"></i>Yêu thích</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link"><i class="fa fa-exchange-alt"></i>So sánh</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-center">Không có Combo nào để hiển thị</p>
+    }
+</div>

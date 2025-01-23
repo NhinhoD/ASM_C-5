@@ -1,0 +1,85 @@
+﻿
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Home | ASM_C#4</title>
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/css/prettyPhoto.css" rel="stylesheet">
+	<link href="~/css/price-range.css" rel="stylesheet">
+	<link href="~/css/animate.css" rel="stylesheet">
+	<link href="~/css/main.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> @*Nhúng Icon*@
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet"> @*Nhúng css sweet aler*@
+</head>
+
+
+
+<header id="header" class="fixed-top">
+	<div class="header-middle ">
+		<!--header-middle-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1">
+					<a asp-action="Index" asp-controller="Home">
+						<img src="https://st.depositphotos.com/57803962/56463/v/450/depositphotos_564635356-stock-illustration-fast-food-icon-vector-illustration.jpg" alt="E-Shopper Logo" style="width: 50px; height: 40px;" />
+					</a>
+				</div>
+				<div class="col">
+					<div class="shop-menu pull-left">
+						<ul class="nav navbar-nav collapse navbar-collapse">
+
+							<li><a asp-controller="Home" asp-action="Index" class="active"><strong>Trang chủ</strong></a></li>
+							<li class="dropdown ">
+								<a asp-controller="Product">Đồ ăn vặt(Products)<i class="fa fa-angle-down"></i></a>
+								<ul role="menu" class="sub-menu" style="background-color:#696763; border-radius: 8px;">
+									<li><a href="contact-us.html" style="background-color:#696763">Danh mục</a></li>
+									<br />
+									<li><a href="contact-us.html" style="background-color:#696763">Chi tiết</a></li>
+									<br />
+									<li><a asp-action="Checkout" asp-controller="Cart" style="background-color:#696763">Thanh toán</a></li>
+									<br />
+									<li><a asp-action="Index" asp-controller="Cart" style="background-color:#696763">Giỏ hàng</a></li>
+									<br />
+								</ul>
+							</li>
+							<li><a href="contact-us.html">Liên hệ</a></li>
+							<li><a asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<form asp-controller="Product" asp-action="Search" method="post">
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search" name="searchTerm" />
+							<button class="btn btn-dark" type="submit">Search</button>
+						</div>
+					</form>
+				</div>
+				<div class="col">
+					<div class="shop-menu pull-right">
+						<ul class="nav navbar-nav">
+
+							@if (User.Identity?.IsAuthenticated ?? false)
+							{
+								<li><a asp-controller="Account" asp-action="Index"><i class="fa-solid fa-user"></i>Hi, @User.Identity.Name</a></li>
+								<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-lock"></i>Đăng xuất</a></li>
+							}
+							else
+							{
+								<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+							}
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div><!--/header-middle-->
+	</div>
+
+</header>

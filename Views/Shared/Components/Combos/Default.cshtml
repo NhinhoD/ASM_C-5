@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Combo>
+
+@foreach (var item in Model)
+{
+	<div class="brands-name border border-dark p-3 rounded">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a asp-controller="Combo" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></li>
+		</ul>
+	</div>
+}

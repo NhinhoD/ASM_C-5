@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+    <title>@ViewData["title"] - Admin Areas</title>
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/css/prettyPhoto.css" rel="stylesheet">
+	<link href="~/css/price-range.css" rel="stylesheet">
+	<link href="~/css/animate.css" rel="stylesheet">
+	<link href="~/css/main.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<header>	    <div class="header-bottom">
+    <!--header-bottom-->
+			<div class="container">
+        <div class="row">
+            <div class="col-sm-9 ">
+                <div class="mainmenu pull-left">
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+						<li><a asp-area="" asp-controller="Home" asp-action="Index" class="active">Trang chủ</a></li>
+						<li><a asp-controller="Product" asp-action="Index">Sản phẩm</a></li>
+                        <li><a asp-controller="Category" asp-action="Index">Danh mục</a></li>
+						<li><a asp-controller="Brand" asp-action="Index">Thương hiệu</a></li>
+						<li><a asp-controller="Order" asp-action="Index">Đơn hàng</a></li>
+						<li><a asp-controller="User" asp-action="Index">Khách hàng</a></li>
+						<li><a asp-controller="Role" asp-action="Index">Vai trò</a></li>
+						<li><a asp-controller="Combo" asp-action="Index">Combo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-3">
+						<div class="search_box pull-right" style="margin-left: 15px;">
+							<input type="text" placeholder="Tìm kiếm" style="border-radius:10px;" />
+						</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/header-bottom-->
+	</header><!--/header-->
+
+	<section>
+		<div class="container">
+			<div class="row">
+				@Html.Partial("_NotificationPartial")
+				@RenderBody()
+			</div>
+		</div>
+	</section>
+	@await Html.PartialAsync("_Footer")
+	<script src="~/js/jquery.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.scrollUp.min.js"></script>
+	<script src="~/js/price-range.js"></script>
+	<script src="~/js/jquery.prettyPhoto.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/backend/js/site.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+	<script>
+		$(function () {
+			var message = '@TempData["success"]';
+			if (message) { // Kiểm tra nếu message có giá trị (không phải null hoặc chuỗi rỗng)
+				Swal.fire({
+					position: "top-center",
+					icon: "success",
+					title: message, // Hiển thị nội dung từ TempData nếu có
+					showConfirmButton: false,
+					timer: 1500
+				});
+			}
+		});
+	</script>
+	<script>
+		$(function () {
+			var message = '@Html.Raw(TempData["error"] ?? "")';
+			if (message) { // Kiểm tra nếu message có giá trị (không phải null hoặc chuỗi rỗng)
+				Swal.fire({
+					icon: "error",
+					title: "Lỗi :(",
+					text: message,
+					footer: '<a href="#">Why do I have this issue?</a>'
+				});
+			}
+		});
+	</script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

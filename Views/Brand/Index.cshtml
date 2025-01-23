@@ -1,0 +1,156 @@
+﻿@model IEnumerable<ProductModel>
+
+<!-- Including Bootstrap and other necessary CSS files -->
+<link href="~/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/css/prettyPhoto.css" rel="stylesheet">
+<link href="~/css/price-range.css" rel="stylesheet">
+<link href="~/css/animate.css" rel="stylesheet">
+<link href="~/css/main.css" rel="stylesheet">
+<link href="~/css/responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<header>
+    <style>
+        .product-image-wrapper {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+        }
+
+            .product-image-wrapper:hover {
+                /* transform: translateY(-5px); */
+                box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), 10px 14px 28px rgba(0, 0, 0, 0.2);
+            }
+
+            .product-image-wrapper img {
+                transition: transform 0.3s ease-in-out;
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .product-image-wrapper:hover img {
+                transform: scale(1.1); /* Phóng to ảnh lên 10% */
+            }
+    </style>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Partial -->
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            @Html.Partial("_SidebarPartial")
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8 col-sm-12">
+            <!-- Features Items Section -->
+            <div class="features_items">
+                <h2 class="title text-center">@Model.First().Brand.Name</h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch ">
+                            <div class="card product-image-wrapper">
+                                <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="text-decoration-none">
+                                    <img src="~/media/products/@item.Image" alt="@item.Name" class="card-img-top img-fluid" style="height: 200px; width:100%;">
+                                </a>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title"><strong>$@item.Price</strong></h5>
+                                    <p class="card-text">@item.Name</p>
+                                    <p class="small text-muted">Danh mục: @item.Category.Name</p>
+                                    <p class="small text-muted">Thương hiệu: @item.Brand.Name</p>
+                                    <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-info-circle"></i> Xem chi tiết
+                                    </a>
+                                </div>
+                                <div class="card-footer">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link"><i class="fa fa-heart"></i>Yêu thích</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link"><i class="fa fa-exchange-alt"></i>So sánh</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Category Tabs Section -->
+            @*  <div class="category-tab">
+            <div class="col-sm-12">
+            <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" href="#tshirt" data-toggle="tab">T-Shirt</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#blazers" data-toggle="tab">Blazers</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#sunglass" data-toggle="tab">Sunglasses</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#kids" data-toggle="tab">Kids</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#poloshirt" data-toggle="tab">Polo Shirt</a>
+            </li>
+            </ul>
+            </div>
+
+            <div class="tab-content">
+            <!-- Example Tab Content -->
+            <div class="tab-pane fade show active" id="tshirt">
+            <div class="row">
+            @for (int i = 1; i <= 4; i++)
+            {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card product-image-wrapper">
+            <img src="~/images/home/gallery@i.jpg" alt="Product Image" class="card-img-top img-fluid">
+            <div class="card-body text-center">
+            <h5 class="card-title">$56</h5>
+            <p class="card-text">Easy Polo Black Edition</p>
+            <a href="#" class="btn btn-warning btn-sm">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+            </a>
+            </div>
+            </div>
+            </div>
+            }
+            </div>
+            </div>
+            </div>
+            </div> *@
+
+            <!-- Recommended Items Carousel -->
+            @* <div class="recommended_items mt-5">
+            <h2 class="title text-center">Recommended Items</h2>
+            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            <div class="carousel-item active">
+            <div class="row">
+            @for (int i = 1; i <= 3; i++)
+            {
+            <div class="col-lg-4 col-md-6">
+            <div class="card product-image-wrapper">
+            <img src="~/images/home/recommend@i.jpg" alt="Recommend Image" class="card-img-top">
+            <div class="card-body text-center">
+            <h5>$56</h5>
+            <p>Easy Polo Black Edition</p>
+            <a href="#" class="btn btn-primary btn-sm">
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+            </a>
+            </div>
+            </div>
+            </div>
+            }
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> *@
+        </div> <!-- Main Content End -->
+    </div> <!-- Row End -->
+</div> <!-- Container End -->

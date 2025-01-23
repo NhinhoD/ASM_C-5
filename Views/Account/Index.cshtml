@@ -1,0 +1,31 @@
+﻿@model ASM_C_4.Models.AppUserModel
+@{
+    Layout = null;
+}
+@await Html.PartialAsync("_Navbar")
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Thông tin khách hàng</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tên: @Model.UserName</h5>
+                <p class="card-text">Email: @Model.Email</p>
+                <a href="/account/edit" class="btn btn-primary">Chỉnh sửa thông tin</a>
+                <a asp-action="Logout" asp-controller="Account" class="btn btn-primary">Đăng xuất</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
