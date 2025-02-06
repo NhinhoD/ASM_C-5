@@ -32,6 +32,21 @@ namespace ASM_C_4.Controllers
 
             return View(products); // Trả về danh sách sản phẩm chính
         }
+        public async Task<IActionResult> Detail(long Id)
+        {
+            if (Id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var productById = _dataContext.Products.Where(p => p.Id == Id).FirstOrDefault(); // category = 4
+            //related product
+            var relatedProducts = await _dataContext.Products
+                .Where(p => p.CategoryId == productById.CategoryId && p.Id != productById.Id)
+                .Take(4)
+                .ToListAsync();
+            ViewBag.RelatedProducts = relatedProducts;
+            return View(productById);  
+        }
 
         public IActionResult Privacy()
         {

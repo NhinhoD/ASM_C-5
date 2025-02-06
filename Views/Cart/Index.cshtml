@@ -75,7 +75,7 @@
                                     <h5>@item.ProductName</h5>
                                 </td>
                                 <td class="cart_price">
-                                    <p>$@item.Price.ToString("0.00")</p>
+                                    <p>@item.Price.ToString("#,##0 VNĐ")</p>
                                 </td>
                                 <td class="cart_quantity">
                                     <div class="d-flex align-items-center">
@@ -92,7 +92,7 @@
                         }
                         <tr class="table-light">
                             <td colspan="4" class="text-end"></td>
-                            <td><strong>Tổng tiền: $@Model.GrandTotal.ToString("0.00")</strong></td>
+                            <td><strong>Tổng tiền: @Model.GrandTotal.ToString("#,##0 VNĐ")</strong></td>
                             <td></td>
                         </tr>
                         <tr>

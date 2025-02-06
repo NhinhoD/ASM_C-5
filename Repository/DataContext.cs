@@ -15,7 +15,8 @@ namespace ASM_C_4.Repository
 		public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Combo> Combos { get; set; }
         public DbSet<ComboProduct> ComboProducts { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		public DbSet<RatingModel> Ratings { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 

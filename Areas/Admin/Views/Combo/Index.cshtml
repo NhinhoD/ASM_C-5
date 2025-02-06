@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ASM_C_4.Models.Combo> 
 <h1>Danh sách Combo</h1>
-<table class="table">
+<table class="table" id="myTable">
     <thead>
         <tr>
             <th>Tên Combo</th>
@@ -15,7 +15,7 @@
         {
             <tr>
                 <td>@combo.Name</td>
-                <td>@combo.Price.ToString("C")</td> <!-- Định dạng giá tiền -->
+                <td>@combo.Price.ToString("#,##0 VNĐ")</td> <!-- Định dạng giá tiền -->
                 <td>
                     @if (combo.ComboProducts != null && combo.ComboProducts.Any())
                     {

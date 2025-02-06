@@ -26,7 +26,7 @@
                                             <div class="card-body text-center">
                                                 <h5 class="card-title">@combo.Name</h5>
                                                 <p>@Html.Raw(@combo.Description)</p>
-                                                <h5 class="text-primary">$@combo.Price</h5>
+                                                <span>@combo.Price.ToString("#,##0 VNĐ")</span>
                                                 <a asp-action="Details" asp-controller="Combo" asp-route-id="@combo.Id" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-shopping-cart"></i> Mua ngay
                                                 </a>
