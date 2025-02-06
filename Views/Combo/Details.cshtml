@@ -18,7 +18,7 @@
                     <!--/product-information-->
                     <h2>@Model.Name</h2>
                     <span>
-                        <span>US $@Model.Price</span>
+                        <span>@Model.Price.ToString("#,##0 VNĐ")</span>
                         <br />
                         <a asp-action="AddCombo" asp-controller="Cart" asp-route-Id="@Model.Id" class="btn btn-default add-to-cart">
                             <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng

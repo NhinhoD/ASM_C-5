@@ -23,7 +23,7 @@ namespace ASM_C_4.Areas.Admin.Controllers
             List<CategoryModel> category = _dataContext.Categories.ToList(); //33 datas
 
 
-            const int pageSize = 10; //10 items/trang
+            const int pageSize = 10; //10 items/trang                                                                                                               
 
             if (pg < 1) //page < 1;
             {

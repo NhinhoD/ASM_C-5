@@ -62,7 +62,7 @@
                                     <img src="~/media/products/@item.Image" alt="@item.Name" class="card-img-top img-fluid" style="height: 200px; width:100%;">
                                 </a>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title"><strong>$@item.Price</strong></h5>
+                                    <h5 class="card-title"><strong>@item.Price.ToString("#,##0 VNĐ")</strong></h5>
                                     <p class="card-text">@item.Name</p>
                                     <p class="small text-muted">Danh mục: @item.Category.Name</p>
                                     <p class="small text-muted">Thương hiệu: @item.Brand.Name</p>

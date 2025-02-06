@@ -28,6 +28,7 @@ namespace ASM_C_4.Areas.Admin.Controllers
         [Route("Index")]
 		public async Task<IActionResult> Index()
 		{
+
 			var usersWithRoles = await (from u in _dataContext.Users
 										join ur in _dataContext.UserRoles on u.Id equals ur.UserId into userRoleGroup
 										from ur in userRoleGroup.DefaultIfEmpty()

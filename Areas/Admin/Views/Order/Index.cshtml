@@ -2,6 +2,13 @@
 
 @{
     ViewData["title"] = "Danh sách đơn hàng";
+    Paginate pager = new Paginate();
+    int pageNO = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNO = pager.CurrentPage;
+    }
 }
 <head>
     <style>
@@ -46,7 +53,7 @@
 <div class="container mt-4">
     <h3 class="text-center text-primary mb-4">Danh sách đơn hàng</h3>
 
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered" id="myTable">
         <thead class="table-dark">
             <tr>
                 <th scope="col">#</th>
@@ -83,4 +90,10 @@
             }
         </tbody>
     </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+            <partial name="_paging" model="@pager" />
+        </div>
+    </div>
 </div>

@@ -33,8 +33,8 @@ namespace ASM_C_4.Models
 
         public CategoryModel Category { get; set; }
         public BrandModel Brand { get; set; }
-
-        public string Image { get; set; }
+		public List<RatingModel> Rating { get; set; } = new List<RatingModel>();
+		public string Image { get; set; }
 
         [NotMapped]
         [FileExtension]

@@ -20,10 +20,29 @@ namespace ASM_C_4.Areas.Admin.Controllers
 			_webHostEnvironment = webHostEnvironment;
 			_dataContext = dataContext;
 		}
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int pg = 1)
 		{
-			
-			return View(await _dataContext.Products.OrderByDescending(p => p.Id).Include(p => p.Category).Include(p => p.Brand).ToListAsync());
+			List<ProductModel> Product = _dataContext.Products.OrderByDescending(p => p.Id).Include(p => p.Category).Include(p => p.Brand).ToList();
+			const int pageSize = 5; //10 items/trang
+
+			if (pg < 1) //page < 1;
+			{
+				pg = 1; //page ==1
+			}
+			int recsCount = Product.Count(); //33 items;
+
+			var pager = new Paginate(recsCount, pg, pageSize);
+
+			int recSkip = (pg - 1) * pageSize; //(3 - 1) * 10; 
+
+			//category.Skip(20).Take(10).ToList()
+
+			var data = Product.Skip(recSkip).Take(pager.PageSize).ToList();
+
+			ViewBag.Pager = pager;
+
+			return View(data);
+			//return View(await _dataContext.Products.OrderByDescending(p => p.Id).Include(p => p.Category).Include(p => p.Brand).ToListAsync());
 		}
 		[HttpGet]
         public IActionResult Create()

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C#4\\ASM\\ASM_C#4\\ASM_C#4.csproj": {}
+    "D:\\C#4\\ASM\\ASM_C#5\\ASM_C#4.csproj": {}
   },
   "projects": {
-    "D:\\C#4\\ASM\\ASM_C#4\\ASM_C#4.csproj": {
+    "D:\\C#4\\ASM\\ASM_C#5\\ASM_C#4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C#4\\ASM\\ASM_C#4\\ASM_C#4.csproj",
+        "projectUniqueName": "D:\\C#4\\ASM\\ASM_C#5\\ASM_C#4.csproj",
         "projectName": "ASM_C#4",
-        "projectPath": "D:\\C#4\\ASM\\ASM_C#4\\ASM_C#4.csproj",
+        "projectPath": "D:\\C#4\\ASM\\ASM_C#5\\ASM_C#4.csproj",
         "packagesPath": "C:\\Users\\duongpx\\.nuget\\packages\\",
-        "outputPath": "D:\\C#4\\ASM\\ASM_C#4\\obj\\",
+        "outputPath": "D:\\C#4\\ASM\\ASM_C#5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -60,13 +60,14 @@
                                     <img src="~/media/products/@item.Image" alt="@item.Name" class="card-img-top img-fluid">
                                 </a>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title"><strong>$@item.Price</strong></h5>
+                                    <h5 class="card-title"><strong>@item.Price.ToString("#,##0 VNĐ")</strong></h5>
                                     <p class="card-text">@item.Name</p>
                                     <p class="small text-muted">Danh mục: @item.Category.Name</p>
                                     <p class="small text-muted">Thương hiệu: @item.Brand.Name</p>
                                     <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
                                         <i class="fa fa-info-circle"></i> Xem chi tiết
                                     </a>
+                                    <button class="btn btn-default add-to-cart" data-product_id="@item.Id"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
                                 </div>
                                 <div class="card-footer">
                                     <ul class="nav nav-pills nav-justified">
@@ -86,5 +87,32 @@
         </div> <!-- Main Content End -->
     </div> <!-- Row End -->
 </div> <!-- Container End -->
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $('.add-to-cart').click(function () {
+                var Id = $(this).data("product_id");
 
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Add","Cart")",
+                    data: {Id : Id},
+                    
+                    success: function (result) {
+                       
+                        if(result){
+                            swal.fire({
+                                position: "top-center",
+                                icon: "success",
+                                title: "Thêm giỏ hàng thành công", // Hiển thị nội dung từ TempData nếu có
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}
 @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> *@
