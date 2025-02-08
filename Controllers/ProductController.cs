@@ -51,6 +51,7 @@ namespace ASM_C_4.Controllers
             .ToListAsync();
             ViewBag.Keyword = searchTerm; return View(products);
         }
+	
 		[Authorize]
 		[HttpPost]
 		public IActionResult AddReview(int productId, int rating, string comment)
